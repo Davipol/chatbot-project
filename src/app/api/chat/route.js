@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export async function POST(request) {
   console.log("API POST route called");
-  console.log("OPENROUTER_API_KEY:", process.env.OPENROUTER_API_KEY);
+
   try {
     const { message } = await request.json();
     console.log("Received message:", message);
