@@ -19,7 +19,8 @@ export default function Home() {
         body: JSON.stringify({ message: question }),
       });
       const data = await response.json();
-      setAnswer(data.reply);
+      setAnswer(data);
+      setQuestion("");
     } catch (error) {
       setAnswer("Error: Could not get answer.");
     } finally {
@@ -45,10 +46,24 @@ export default function Home() {
           </button>
         </form>
 
-        <div className="mt-4">
-          <h2 className="font-bold text-lg">Here is your answer:</h2>
-          <p className="min-w-3 min-h-6 whitespace-pre-wrap">{answer}</p>
-        </div>
+        {answer && (
+          <div className="mt-4">
+            <h2 className="font-bold text-lg">Here is your answer:</h2>
+            <p>
+              <strong>Modern meaning:</strong> {answer.modernMeaning || "N/A"}
+            </p>
+            <p>
+              <strong>Century of origin:</strong>{" "}
+              {answer.centuryOfOrigin || "N/A"}
+            </p>
+            <p>
+              <strong>Etymology:</strong> {answer.detailedEtymology || "N/A"}
+            </p>
+            <p>
+              <strong>Fun fact:</strong> {answer.funFact || "N/A"}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

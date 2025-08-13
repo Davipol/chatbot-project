@@ -14,36 +14,40 @@ export async function POST(request) {
     const response = await openai.chat.completions.create({
       model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
+        {
+          role: "system",
+          content: `You are an API. You must reply ONLY with valid JSON, no markdown, no text outside JSON, no triple backticks.
+Etymology of "${message}" in this format:{
+  "modernMeaning": "...",
+  "centuryOfOrigin": "...",
+  "detailedEtymology": "...",
+  "funFact": "..."
+}`,
+        },
         { role: "user", content: message },
       ],
     });
 
-    const reply =
-      response.choices?.[0]?.message?.content || "No reply received.";
+    let rawContent = response.choices?.[0]?.message?.content || "{}";
 
-    return new Response(JSON.stringify({ reply }), {
+    rawContent = rawContent
+      .replace(/```(?:json)?\s*([\s\S]*?)\s*```/i, "$1")
+      .trim();
+
+    let replyData;
+    try {
+      replyData = JSON.parse(rawContent);
+    } catch (parseError) {
+      console.error("Failed to parse model output:", parseError);
+      replyData = { modernMeaning: null, centuryOfOrigin: null, funFact: null };
+    }
+
+    return new Response(JSON.stringify(replyData), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
     console.error("OpenRouter API error:", error);
-
-    if (error.response) {
-      try {
-        const errBody = await error.response.json();
-        console.error("Error response body:", errBody);
-      } catch (_) {}
-    }
-
-    if (error.raw) {
-      console.error("Raw error from OpenAI SDK:", error.raw);
-    }
-
-    if (error.message) {
-      console.error("Error message:", error.message);
-    }
-
     return new Response(
       JSON.stringify({
         error: "OpenRouter API request failed",
