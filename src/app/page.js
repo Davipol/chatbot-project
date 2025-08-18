@@ -25,8 +25,16 @@ export default function Home() {
       setAnswer("Error: Could not get answer.");
     } finally {
       setLoading(false);
+      setQuestion("");
     }
   }
+
+  const upperCase = (word) => {
+    if (!word) {
+      return "";
+    }
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  };
 
   return (
     <>
@@ -36,14 +44,14 @@ export default function Home() {
         <div className="bg-white flex-col w-full ">
           <form className="mx-auto  w-1/2 " id="word" onSubmit={handleSubmit}>
             <input
-              className="w-full h-10 border-1 rounded"
+              className="w-full px-1 h-10 border-1 rounded"
               id="word"
-              placeholder="Insert a word or a sentence..."
+              placeholder=" Insert a word or a sentence..."
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
             <button
-              className="w-full mt-1 mx-auto  bg-blue-600 text-white text-xl px-4 py-2 rounded"
+              className="w-full mx-auto  bg-blue-600 text-white text-xl px-4 py-2 rounded"
               type="submit"
               disabled={loading || !question.trim()}
             >
@@ -52,22 +60,29 @@ export default function Home() {
           </form>
           {answer && (
             <div className="h-fit space-y-3">
-              <h2 className="font-bold text-lg text-center">
+              <h2 className="font-bold text-lg text-center mt-2">
                 Here is your answer:
               </h2>
-              <p>
-                <strong>Modern meaning:</strong> {answer.modernMeaning || "N/A"}
+              <p className="font-bold text-lg text-center">
+                <strong>{upperCase(question)}</strong>
               </p>
-              <p>
-                <strong>Century of origin:</strong>{" "}
-                {answer.centuryOfOrigin || "N/A"}
-              </p>
-              <p>
-                <strong>Etymology:</strong> {answer.detailedEtymology || "N/A"}
-              </p>
-              <p>
-                <strong>Fun fact:</strong> {answer.funFact || "N/A"}
-              </p>
+              <div className="bg-blue-100 h-fit border-2 rounded-2xl p-2 space-y-3">
+                <p>
+                  <strong>Modern meaning:</strong>{" "}
+                  {answer.modernMeaning || "N/A"}
+                </p>
+                <p>
+                  <strong>Century of origin:</strong>{" "}
+                  {answer.centuryOfOrigin || "N/A"}
+                </p>
+                <p>
+                  <strong>Etymology:</strong>{" "}
+                  {answer.detailedEtymology || "N/A"}
+                </p>
+                <p>
+                  <strong>Fun fact:</strong> {answer.funFact || "N/A"}
+                </p>
+              </div>
             </div>
           )}
         </div>
