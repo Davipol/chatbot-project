@@ -58,6 +58,7 @@ export default function Home() {
               {loading ? "Thinking..." : "Ask"}
             </button>
           </form>
+
           {answer && (
             <div className="h-fit space-y-3">
               <h2 className="font-bold text-lg text-center mt-2">
