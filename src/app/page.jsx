@@ -9,7 +9,12 @@ export default function Home() {
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [submittedQuestion, setSubmittedQuestion] = useState("");
-  const [history, sethistory] = useState([]);
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    const savedHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
+    setHistory(savedHistory);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,6 +32,11 @@ export default function Home() {
       });
       const data = await response.json();
       setAnswer(data);
+
+      const newHistoryEntry = { question: submittedQuestion, answer: data };
+      const updatedHistory = [newHistoryEntry, ...history];
+      setHistory(updatedHistory);
+      localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
     } catch (error) {
       setAnswer("Error: Could not get answer.");
     } finally {
