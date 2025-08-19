@@ -1,23 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
+
 export default function Home() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submittedQuestion, setSubmittedQuestion] = useState("");
+  const [history, sethistory] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setAnswer("");
 
+    setSubmittedQuestion(question);
+    setQuestion("");
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: question }),
+        body: JSON.stringify({ message: submittedQuestion }),
       });
       const data = await response.json();
       setAnswer(data);
@@ -29,7 +35,7 @@ export default function Home() {
     }
   }
 
-  const upperCase = (word) => {
+  const wordToUpperCase = (word) => {
     if (!word) {
       return "";
     }
@@ -42,7 +48,7 @@ export default function Home() {
 
       <div className="flex justify-center flex-col my-30 mx-5 lg:mx-40">
         <div className="bg-white flex-col w-full ">
-          <form className="mx-auto  w-1/2 " id="word" onSubmit={handleSubmit}>
+          <form className="mx-auto  w-1/2 " onSubmit={handleSubmit}>
             <input
               className="w-full px-1 h-10 border-1 rounded"
               id="word"
@@ -64,8 +70,8 @@ export default function Home() {
               <h2 className="font-bold text-lg text-center mt-2">
                 Here is your answer:
               </h2>
-              <p className="font-bold text-lg text-center">
-                <strong>{upperCase(question)}</strong>
+              <p className="font-bold text-2xl text-center">
+                <strong>{wordToUpperCase(submittedQuestion)}</strong>
               </p>
               <div className="bg-blue-100 h-fit border-2 rounded-2xl p-2 space-y-3">
                 <p>
