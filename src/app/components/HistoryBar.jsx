@@ -10,8 +10,8 @@ const HistoryBar = ({ historyItems }) => {
   };
 
   return (
-    <div className="w-64 min-h-screen bg-gray-100 p-4 border-r">
-      <h2 className="font-bold mb-2 text-center">History</h2>
+    <div className="w-38 md:w-56 lg:w-72 min-h-screen bg-gray-100 border-r">
+      <h2 className="font-bold text-2xl my-3 text-center">History</h2>
       <ul className="space-y-2">
         {historyItems.map((item, index) => (
           <li

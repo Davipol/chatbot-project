@@ -57,11 +57,14 @@ export default function Home() {
       <Header />
       <div className="flex">
         <HistoryBar historyItems={history} />
-        <div className=" flex-1 justify-center flex-col my-30 mx-5 lg:mx-40">
-          <div className="bg-white flex-col w-full ">
-            <form className="mx-auto  w-1/2 " onSubmit={handleSubmit}>
+        <div className=" flex-1 justify-center flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
+          <div className="bg-white flex-col w-full  ">
+            <form
+              className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
+              onSubmit={handleSubmit}
+            >
               <input
-                className="w-full px-1 h-10 border-1 rounded"
+                className="w-full px-3 py-2 border rounded text-base md:text-lg lg:text-xl"
                 id="word"
                 placeholder=" Insert a word or a sentence..."
                 value={question}
