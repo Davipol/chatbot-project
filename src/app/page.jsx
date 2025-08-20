@@ -25,22 +25,22 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
     setAnswer("");
-
-    setSubmittedQuestion(question);
+    const currentQuestion = question;
+    setSubmittedQuestion(currentQuestion);
     setQuestion("");
 
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: submittedQuestion }),
+        body: JSON.stringify({ message: currentQuestion }),
       });
       const data = await response.json();
       setAnswer(data);
 
-      const newHistoryEntry = { question: submittedQuestion, answer: data };
+      const newHistoryEntry = { question: currentQuestion, answer: data };
       const updatedHistory = [newHistoryEntry, ...history];
-      if (submittedQuestion.trim().length > 0) {
+      if (currentQuestion.trim().length > 0) {
         setHistory(updatedHistory);
         localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
       }
@@ -64,6 +64,12 @@ export default function Home() {
     answer,
   };
 
+  const clearHistory = () => {
+    setHistory([]);
+    setSelectedHistoryItem("");
+    localStorage.removeItem("chatHistory");
+  };
+
   return (
     <>
       <Header />
@@ -71,6 +77,7 @@ export default function Home() {
         <HistoryBar
           historyItems={history}
           onHistorySelect={setSelectedHistoryItem}
+          onClearHistory={clearHistory}
         />
         <div className=" flex-1 justify-center flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
           <div className="bg-white flex-col w-full  ">
