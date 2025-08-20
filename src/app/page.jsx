@@ -10,6 +10,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [submittedQuestion, setSubmittedQuestion] = useState("");
   const [history, setHistory] = useState([]);
+  const [selectedHistoryItem, setSelectedHistoryItem] = useState("");
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
@@ -35,7 +36,9 @@ export default function Home() {
 
       const newHistoryEntry = { question: submittedQuestion, answer: data };
       const updatedHistory = [newHistoryEntry, ...history];
-      setHistory(updatedHistory);
+      if (newHistoryEntry.length > 0) {
+        setHistory(updatedHistory);
+      }
       localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
     } catch (error) {
       setAnswer("Error: Could not get answer.");
@@ -52,11 +55,19 @@ export default function Home() {
     return word[0].toUpperCase() + word.substring(1).toLowerCase();
   };
 
+  const displayedItem = selectedHistoryItem || {
+    question: submittedQuestion,
+    answer,
+  };
+
   return (
     <>
       <Header />
       <div className="flex">
-        <HistoryBar historyItems={history} />
+        <HistoryBar
+          historyItems={history}
+          onHistorySelect={setSelectedHistoryItem}
+        />
         <div className=" flex-1 justify-center flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
           <div className="bg-white flex-col w-full  ">
             <form
@@ -90,18 +101,19 @@ export default function Home() {
                 <div className="bg-blue-100 h-fit border-2 rounded-2xl p-2 space-y-3">
                   <p>
                     <strong>Modern meaning:</strong>{" "}
-                    {answer.modernMeaning || "N/A"}
+                    {displayedItem.answer.modernMeaning || "N/A"}
                   </p>
                   <p>
                     <strong>Century of origin:</strong>{" "}
-                    {answer.centuryOfOrigin || "N/A"}
+                    {displayedItem.answer.centuryOfOrigin || "N/A"}
                   </p>
                   <p>
                     <strong>Etymology:</strong>{" "}
-                    {answer.detailedEtymology || "N/A"}
+                    {displayedItem.answer.detailedEtymology || "N/A"}
                   </p>
                   <p>
-                    <strong>Fun fact:</strong> {answer.funFact || "N/A"}
+                    <strong>Fun fact:</strong>{" "}
+                    {displayedItem.answer.funFact || "N/A"}
                   </p>
                 </div>
               </div>

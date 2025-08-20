@@ -3,12 +3,7 @@
 import React from "react";
 import { useState } from "react";
 
-const HistoryBar = ({ historyItems }) => {
-  const [historyItemClicked, setHistoryItemClicked] = useState("");
-  const handleClick = (item) => {
-    setHistoryItemClicked(item.answer);
-  };
-
+const HistoryBar = ({ historyItems, onHistorySelect }) => {
   return (
     <div className="w-38 md:w-56 lg:w-72 min-h-screen bg-gray-100 border-r">
       <h2 className="font-bold text-2xl my-3 text-center">History</h2>
@@ -18,7 +13,7 @@ const HistoryBar = ({ historyItems }) => {
             key={index}
             className="cursor-pointer hover:bg-gray-200 p-2 rounded text-center"
             onClick={() => {
-              handleClick(item);
+              onHistorySelect(item);
             }}
           >
             {item.question}
