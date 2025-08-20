@@ -14,7 +14,11 @@ export default function Home() {
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    setHistory(savedHistory);
+    const cleanedHistory = savedHistory.filter(
+      (item) => item.question && item.question.trim().length > 0
+    );
+    setHistory(cleanedHistory);
+    localStorage.setItem("chatHistory", JSON.stringify(cleanedHistory));
   }, []);
 
   async function handleSubmit(e) {
@@ -36,10 +40,10 @@ export default function Home() {
 
       const newHistoryEntry = { question: submittedQuestion, answer: data };
       const updatedHistory = [newHistoryEntry, ...history];
-      if (newHistoryEntry.length > 0) {
+      if (submittedQuestion.trim().length > 0) {
         setHistory(updatedHistory);
+        localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
       }
-      localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
     } catch (error) {
       setAnswer("Error: Could not get answer.");
     } finally {
