@@ -11,6 +11,7 @@ export default function Home() {
   const [submittedQuestion, setSubmittedQuestion] = useState("");
   const [history, setHistory] = useState([]);
   const [selectedHistoryItem, setSelectedHistoryItem] = useState("");
+  const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
@@ -73,12 +74,26 @@ export default function Home() {
   return (
     <>
       <Header />
+      <button
+        className="sm:hidden fixed top-2 left-2 z-30 px-3 py-2 bg-gray-800 text-white rounded"
+        onClick={() => setShowHistory(!showHistory)}
+      >
+        {showHistory ? "Close History" : "Open History"}
+      </button>
       <div className="flex">
-        <HistoryBar
-          historyItems={history}
-          onHistorySelect={setSelectedHistoryItem}
-          onClearHistory={clearHistory}
-        />
+        <div
+          className={`
+            ${showHistory ? "block" : "hidden"}
+            fixed top-0 left-0 h-full z-20 bg-white
+            sm:block sm:static sm:h-auto
+          `}
+        >
+          <HistoryBar
+            historyItems={history}
+            onHistorySelect={setSelectedHistoryItem}
+            onClearHistory={clearHistory}
+          />
+        </div>
         <div className=" flex-1 justify-center flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
           <div className="bg-white flex-col w-full  ">
             <form
