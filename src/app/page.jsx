@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import HistoryBar from "./components/HistoryBar";
+import { LuPanelLeftOpen, LuPanelRightOpen } from "react-icons/lu";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
@@ -13,8 +14,8 @@ export default function Home() {
   const [history, setHistory] = useState([]);
   const [selectedHistoryItem, setSelectedHistoryItem] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
-
   const typingTimeoutRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
@@ -132,7 +133,23 @@ export default function Home() {
       setLoading(false);
     }
   }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        showHistory &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        setShowHistory(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showHistory]);
   const wordToUpperCase = (word) => {
     if (!word) return "";
     return word[0].toUpperCase() + word.slice(1).toLowerCase();
@@ -151,19 +168,34 @@ export default function Home() {
   return (
     <>
       <Header />
-      <button
-        className="sm:hidden fixed top-2 left-2 z-30 px-3 py-2 bg-gray-800 text-white rounded"
-        onClick={() => setShowHistory(!showHistory)}
-      >
-        {showHistory ? "Close History" : "Open History"}
-      </button>
-
+      {showHistory ? (
+        <LuPanelRightOpen
+          size={30}
+          className="sm:hidden fixed top-4 left-38 z-30 bg-blue-400 text-white rounded transform transition-discrete"
+          onClick={() => setShowHistory(false)}
+          title="Close History"
+        />
+      ) : (
+        <LuPanelLeftOpen
+          size={30}
+          className="sm:hidden fixed top-4 left-3 z-30 bg-blue-400 text-white rounded"
+          onClick={() => setShowHistory(true)}
+          title="Open History"
+        />
+      )}
+      {showHistory && (
+        <div
+          className="sm:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-10"
+          onClick={() => setShowHistory(false)}
+        />
+      )}
       <div className="flex">
         <div
+          ref={sidebarRef}
           className={`
-            ${showHistory ? "block" : "hidden"}
-            fixed top-0 left-0 h-full z-20 bg-white
-            sm:block sm:static sm:h-auto
+             fixed top-0 left-0 h-full w-38 z-20 bg-white shadow-lg transform transition-transform duration-300
+    ${showHistory ? "translate-x-0" : "-translate-x-full"}
+    sm:static sm:translate-x-0 sm:h-auto sm:w-64 sm:shadow-none
           `}
         >
           <HistoryBar

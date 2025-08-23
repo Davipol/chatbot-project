@@ -2,26 +2,27 @@
 
 import React from "react";
 import { useState } from "react";
+import { GrClear } from "react-icons/gr";
 
 const HistoryBar = ({ historyItems, onHistorySelect, onClearHistory }) => {
   return (
-    <div className="w-38 md:w-56 lg:w-72 min-h-screen border-r overflow-auto">
+    <div className="w-38 md:w-56 lg:w-72 min-h-screen border-r overflow-auto inline-block">
       <div className="flex justify-evenly text-center flex-row">
-        <h2 className=" font-bold text-2xl my-3 text-center">History</h2>
-        <button
-          className="bg-blue-600 font-bold hover:bg-blue-400 text-white rounded"
+        <h2 className=" font-bold text-2xl my-3 text-center flex-1">History</h2>
+        <GrClear
+          size={30}
+          title="Clear History"
+          className="text-red-600 mt-3 rounded mr-3"
           onClick={() => {
             onClearHistory();
           }}
-        >
-          Clear
-        </button>
+        />
       </div>
       <ul className="space-y-2">
         {historyItems.map((item, index) => (
           <li
             key={index}
-            className="cursor-pointer hover:bg-gray-200 p-2 rounded text-center"
+            className="cursor-pointer hover:bg-gray-200 p-2 rounded-2xl text-center"
             onClick={() => {
               onHistorySelect(item);
             }}
