@@ -14,6 +14,7 @@ export default function Home() {
   const [history, setHistory] = useState([]);
   const [selectedHistoryItem, setSelectedHistoryItem] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
+  const [error, setError] = useState("");
   const typingTimeoutRef = useRef(null);
   const sidebarRef = useRef(null);
 
@@ -34,8 +35,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const currentAnswer = selectedHistoryItem?.answer || answer;
+    if (error) {
+      clearTypingTimeout();
+      setTypedLines([]);
+      return;
+    }
 
+    const currentAnswer = selectedHistoryItem?.answer || answer;
     if (!currentAnswer) {
       clearTypingTimeout();
       setTypedLines([]);
@@ -82,7 +88,7 @@ export default function Home() {
     typeField(0, 0);
 
     return () => clearTypingTimeout();
-  }, [answer, selectedHistoryItem]);
+  }, [answer, selectedHistoryItem, error]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -90,6 +96,7 @@ export default function Home() {
 
     setLoading(true);
     setAnswer(null);
+    setError("");
     setSelectedHistoryItem(null);
     const currentQuestion = question;
     setSubmittedQuestion(currentQuestion);
@@ -101,6 +108,9 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: currentQuestion }),
       });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
 
       const safeData = {
@@ -123,12 +133,8 @@ export default function Home() {
       setHistory(updatedHistory);
       localStorage.setItem("chatHistory", JSON.stringify(updatedHistory));
     } catch (error) {
-      setAnswer({
-        modernMeaning: "Error fetching answer",
-        centuryOfOrigin: "N/A",
-        detailedEtymology: "N/A",
-        funFact: "N/A",
-      });
+      setError("Error fetching answer. Please try again.");
+      setAnswer(null);
     } finally {
       setLoading(false);
     }
@@ -189,13 +195,14 @@ export default function Home() {
           onClick={() => setShowHistory(false)}
         />
       )}
+
       <div className="flex">
         <div
           ref={sidebarRef}
           className={`
-             fixed top-0 left-0 h-full w-38 z-20 bg-white shadow-lg transform transition-transform duration-300
-    ${showHistory ? "translate-x-0" : "-translate-x-full"}
-    sm:static sm:translate-x-0 sm:h-auto sm:w-64 sm:shadow-none
+            fixed top-0 left-0 h-full w-36 z-20 bg-white shadow-lg transform transition-transform duration-300
+            ${showHistory ? "translate-x-0" : "-translate-x-full"}
+            sm:static sm:translate-x-0 sm:h-auto sm:w-64 sm:shadow-none
           `}
         >
           <HistoryBar
@@ -205,7 +212,7 @@ export default function Home() {
           />
         </div>
 
-        <div className=" flex-1 justify-center flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
+        <div className="flex flex-1 flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
           <form
             className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
             onSubmit={handleSubmit}
@@ -213,12 +220,12 @@ export default function Home() {
             <input
               className="w-full px-3 py-2 border rounded text-base md:text-lg lg:text-xl"
               id="word"
-              placeholder=" Insert a word or a sentence..."
+              placeholder="Insert a word or a sentence..."
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
             <button
-              className="w-full mx-auto bg-blue-600 text-white text-xl px-4 py-2 rounded"
+              className="w-full mx-auto bg-blue-600 text-white text-xl px-4 py-2 rounded mt-2"
               type="submit"
               disabled={loading || !question.trim()}
             >
@@ -226,31 +233,36 @@ export default function Home() {
             </button>
           </form>
 
-          <div className="bg-white flex-col w-full">
-            {displayedItem && displayedItem.answer && (
-              <div className="h-fit space-y-3">
-                <h2 className="font-bold text-lg text-center mt-2">
-                  Here is your answer:
-                </h2>
-                <p className="font-bold text-2xl text-center">
-                  <strong>{wordToUpperCase(displayedItem.question)}</strong>
-                </p>
-                <div className="bg-blue-100 h-fit rounded-2xl p-2 space-y-3">
-                  {typedLines.map((line, index) => {
-                    const fieldNames = [
-                      "Modern meaning",
-                      "Century of origin",
-                      "Etymology",
-                      "Fun fact",
-                    ];
-                    return (
-                      <p key={index}>
-                        <strong>{fieldNames[index]}:</strong> {line}
-                      </p>
-                    );
-                  })}
+          <div className="mt-4 w-full">
+            {error ? (
+              <p className="text-red-600 font-semibold text-center">{error}</p>
+            ) : (
+              displayedItem &&
+              displayedItem.answer && (
+                <div className="bg-white flex-col w-full">
+                  <h2 className="font-bold text-lg text-center mt-2">
+                    Here is your answer:
+                  </h2>
+                  <p className="font-bold text-2xl text-center mt-1">
+                    <strong>{wordToUpperCase(displayedItem.question)}</strong>
+                  </p>
+                  <div className="bg-blue-100 h-fit rounded-2xl p-2 space-y-3 mt-2">
+                    {typedLines.map((line, index) => {
+                      const fieldNames = [
+                        "Modern meaning",
+                        "Century of origin",
+                        "Etymology",
+                        "Fun fact",
+                      ];
+                      return (
+                        <p key={index}>
+                          <strong>{fieldNames[index]}:</strong> {line}
+                        </p>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )
             )}
           </div>
         </div>
