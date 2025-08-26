@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import HistoryBar from "./components/HistoryBar";
 import { LuPanelLeftOpen, LuPanelRightOpen } from "react-icons/lu";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
@@ -200,9 +201,9 @@ export default function Home() {
         <div
           ref={sidebarRef}
           className={`
-            fixed top-0 left-0 h-full w-36 z-20 bg-white shadow-lg transform transition-transform duration-300
+            fixed top-0 left-0 h-full z-20 bg-white shadow-lg transform transition-transform duration-300
             ${showHistory ? "translate-x-0" : "-translate-x-full"}
-            sm:static sm:translate-x-0 sm:h-auto sm:w-64 sm:shadow-none
+            sm:static sm:translate-x-0 sm:h-auto sm:w-56sm:shadow-none
           `}
         >
           <HistoryBar
