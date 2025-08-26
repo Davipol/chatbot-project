@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import HistoryBar from "./components/HistoryBar";
 import { LuPanelLeftOpen, LuPanelRightOpen } from "react-icons/lu";
-import Footer from "./components/Footer";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
@@ -178,14 +177,14 @@ export default function Home() {
       {showHistory ? (
         <LuPanelRightOpen
           size={30}
-          className="sm:hidden fixed top-4 left-38 z-30 bg-blue-400 text-white rounded transform transition-discrete"
+          className="sm:hidden fixed top-4 left-38 z-30 bg-blue-600 text-white rounded transform transition-discrete"
           onClick={() => setShowHistory(false)}
           title="Close History"
         />
       ) : (
         <LuPanelLeftOpen
           size={30}
-          className="sm:hidden fixed top-4 left-3 z-30 bg-blue-400 text-white rounded"
+          className="sm:hidden fixed top-4 left-3 z-30 bg-blue-600 text-white rounded"
           onClick={() => setShowHistory(true)}
           title="Open History"
         />
@@ -264,6 +263,19 @@ export default function Home() {
                         </p>
                       );
                     })}
+                  </div>
+                  <div className="mx-auto flex">
+                    <button
+                      className="w-1/3 mx-auto bg-gray-400 text-black  text-xl rounded mt-4 py-2 hover:bg-gray-400"
+                      onClick={() => {
+                        setAnswer(null);
+                        setTypedLines([]);
+                        setSelectedHistoryItem(null);
+                        setSubmittedQuestion("");
+                      }}
+                    >
+                      Reset
+                    </button>
                   </div>
                 </div>
               )
