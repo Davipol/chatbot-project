@@ -6,7 +6,7 @@ import { GrClear } from "react-icons/gr";
 
 const HistoryBar = ({ historyItems, onHistorySelect, onClearHistory }) => {
   return (
-    <div className="w-36 md:w-64 lg:w-72 min-h-screen border-r overflow-auto inline-block">
+    <div className="w-36 md:w-64 lg:w-72 min-h-screen border-r-2 overflow-auto inline-block">
       <div className="flex justify-evenly text-center flex-row">
         <h2 className=" font-bold text-2xl my-3 text-center flex-1">History</h2>
         <GrClear
