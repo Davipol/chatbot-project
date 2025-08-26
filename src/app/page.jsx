@@ -208,7 +208,10 @@ export default function Home() {
         >
           <HistoryBar
             historyItems={history}
-            onHistorySelect={setSelectedHistoryItem}
+            onHistorySelect={(item) => {
+              setSelectedHistoryItem(item);
+              setShowHistory(false);
+            }}
             onClearHistory={clearHistory}
           />
         </div>
