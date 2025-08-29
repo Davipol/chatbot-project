@@ -177,7 +177,7 @@ export default function Home() {
       {showHistory ? (
         <LuPanelRightOpen
           size={30}
-          className="sm:hidden fixed top-4 left-38 z-30 bg-blue-600 text-white rounded transform transition-discrete"
+          className="sm:hidden fixed top-4 left-64 z-30 bg-blue-600 text-white rounded transform "
           onClick={() => setShowHistory(false)}
           title="Close History"
         />
@@ -212,6 +212,18 @@ export default function Home() {
               setShowHistory(false);
             }}
             onClearHistory={clearHistory}
+            onDeleteItem={(itemToDelete) => {
+              const updatedHistory = history.filter(
+                (entry) =>
+                  entry.question.toLowerCase() !==
+                  itemToDelete.question.toLowerCase()
+              );
+              setHistory(updatedHistory);
+              localStorage.setItem(
+                "chatHistory",
+                JSON.stringify(updatedHistory)
+              );
+            }}
           />
         </div>
 

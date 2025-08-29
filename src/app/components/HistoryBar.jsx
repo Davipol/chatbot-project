@@ -3,15 +3,20 @@
 import React from "react";
 import { GrClear } from "react-icons/gr";
 
-const HistoryBar = ({ historyItems, onHistorySelect, onClearHistory }) => {
+const HistoryBar = ({
+  historyItems,
+  onHistorySelect,
+  onClearHistory,
+  onDeleteItem,
+}) => {
   return (
-    <div className="w-36 md:w-64 lg:w-72 min-h-screen border-r-2 overflow-auto inline-block">
-      <div className="flex justify-evenly text-center flex-row">
-        <h2 className=" font-bold text-2xl my-3 text-center flex-1">History</h2>
+    <div className="w-60 sm:w-64 md:w-64 lg:w-72 min-h-screen border-r-2 overflow-auto inline-block">
+      <div className="relative border-b-1 pb-1">
+        <h2 className=" font-bold text-2xl my-3 text-center pr-10">History</h2>
         <GrClear
           size={30}
           title="Clear History"
-          className="text-red-600 mt-3 rounded mr-3"
+          className="absolute right-3 top-1/3 -translate-y-1/2 text-red-600 cursor-pointer"
           onClick={() => {
             onClearHistory();
           }}
@@ -21,12 +26,22 @@ const HistoryBar = ({ historyItems, onHistorySelect, onClearHistory }) => {
         {historyItems.map((item, index) => (
           <li
             key={index}
-            className="cursor-pointer hover:bg-gray-200 p-2 rounded-2xl text-center"
+            className="relative cursor-pointer hover:bg-gray-200 p-2 pr-10 rounded-2xl text-center text-xl truncate"
             onClick={() => {
               onHistorySelect(item);
             }}
           >
             {item.question}
+            <button
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700 text-2xl"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteItem(item);
+              }}
+              title="Delete"
+            >
+              ✕
+            </button>
           </li>
         ))}
       </ul>
