@@ -177,14 +177,14 @@ export default function Home() {
       {showHistory ? (
         <LuPanelRightOpen
           size={30}
-          className="sm:hidden fixed top-4 left-64 z-30 bg-blue-600 text-white rounded transform "
+          className="sm:hidden fixed top-4 left-64 z-30  text-black dark:text-white rounded transform "
           onClick={() => setShowHistory(false)}
           title="Close History"
         />
       ) : (
         <LuPanelLeftOpen
           size={30}
-          className="sm:hidden fixed top-4 left-3 z-30 bg-blue-600 text-white rounded"
+          className="sm:hidden fixed top-4 left-3 z-30   text-blue-600 dark:text-white rounded"
           onClick={() => setShowHistory(true)}
           title="Open History"
         />
@@ -233,14 +233,14 @@ export default function Home() {
             onSubmit={handleSubmit}
           >
             <input
-              className="w-full px-3 py-2 border rounded text-base md:text-lg lg:text-xl"
+              className="w-full px-3 py-2 border rounded text-base md:text-lg lg:text-xl dark:bg-zinc-800 dark:text-white"
               id="word"
               placeholder="Insert a word or a sentence..."
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
             <button
-              className="w-full mx-auto bg-blue-600 text-white text-xl px-4 py-2 rounded mt-2"
+              className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-700"
               type="submit"
               disabled={loading || !question.trim()}
             >
@@ -254,14 +254,14 @@ export default function Home() {
             ) : (
               displayedItem &&
               displayedItem.answer && (
-                <div className="bg-white flex-col w-full">
-                  <h2 className="font-bold text-lg text-center mt-2">
+                <div className="bg-white dark:bg-zinc-800 flex-col w-full">
+                  <h2 className="font-bold text-lg text-center mt-2 text-black dark:text-white">
                     Here is your answer:
                   </h2>
-                  <p className="font-bold text-2xl text-center mt-1">
+                  <p className="font-bold text-2xl text-center mt-1 text-black dark:text-white">
                     <strong>{wordToUpperCase(displayedItem.question)}</strong>
                   </p>
-                  <div className="bg-blue-100 h-fit rounded-2xl p-2 space-y-3 mt-2">
+                  <div className="bg-blue-100 dark:bg-blue-950 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black dark:text-white">
                     {typedLines.map((line, index) => {
                       const fieldNames = [
                         "Modern meaning",
@@ -278,7 +278,7 @@ export default function Home() {
                   </div>
                   <div className="mx-auto flex">
                     <button
-                      className="w-1/3 mx-auto bg-gray-400 text-black  text-xl rounded mt-4 py-2 hover:bg-gray-400"
+                      className="w-1/3 mx-auto bg-gray-400 dark:bg-gray-600 text-black dark:text-white  text-xl rounded mt-4 py-2 hover:bg-gray-400"
                       onClick={() => {
                         setAnswer(null);
                         setTypedLines([]);

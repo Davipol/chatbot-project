@@ -10,13 +10,13 @@ const HistoryBar = ({
   onDeleteItem,
 }) => {
   return (
-    <div className="w-60 sm:w-64 md:w-64 lg:w-72 min-h-screen border-r-2 overflow-auto inline-block bg-white text-black dark:bg-zinc-800 dark:text-white">
-      <div className="relative border-b-1 pb-1 dark:border-b-black">
+    <div className="w-60 sm:w-64 md:w-64 lg:w-72 min-h-screen border-r-2 overflow-auto inline-block bg-white dark:bg-zinc-800 text-black  dark:text-white">
+      <div className="relative border-b-1 pb-1 ">
         <h2 className=" font-bold text-2xl my-3 text-center pr-10">History</h2>
         <GrClear
           size={30}
           title="Clear History"
-          className="absolute right-3 top-1/3 -translate-y-1/2 text-red-600 cursor-pointer dark:text-red-400 dark:hover:text-red-200"
+          className="absolute right-3 top-1/3 -translate-y-1/2 text-red-600 cursor-pointer hover:text-red-700 dark:text-red-400 dark:hover:text-red-200"
           onClick={() => {
             onClearHistory();
           }}
