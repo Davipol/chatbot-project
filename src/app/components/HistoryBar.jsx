@@ -26,7 +26,7 @@ const HistoryBar = ({
         {historyItems.map((item, index) => (
           <li
             key={index}
-            className="relative cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-600 p-2 pr-10 rounded-2xl text-center text-xl truncate"
+            className="relative cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-600 p-2 pr-10 rounded-2xl text-center md:text-lg lg:text-xl truncate"
             onClick={() => {
               onHistorySelect(item);
             }}

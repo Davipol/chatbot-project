@@ -18,7 +18,7 @@ const Header = () => {
       </h1>
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
-        className="mr-5 rounded-2xl border-1 p-2 bg-zinc-800 text-white hover:bg-zinc-700 transition"
+        className="mr-5 rounded-2xl border-1 p-2 bg-blue-800 dark:bg-zinc-800 text-white hover:bg-zinc-700 transition"
         title="Toggle Dark Mode"
       >
         {isDarkMode ? <LuMoon size={25} /> : <LuSun size={25} />}

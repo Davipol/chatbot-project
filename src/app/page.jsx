@@ -255,10 +255,10 @@ export default function Home() {
               displayedItem &&
               displayedItem.answer && (
                 <div className="bg-white dark:bg-zinc-800 flex-col w-full">
-                  <h2 className="font-bold text-lg text-center mt-2 text-black dark:text-white">
+                  <h2 className="font-bold text-lg md:text-2xl text-center mt-2 text-black dark:text-white">
                     Here is your answer:
                   </h2>
-                  <p className="font-bold text-2xl text-center mt-1 text-black dark:text-white">
+                  <p className="font-bold text-2xl md:text-3xl text-center mt-1 text-black dark:text-white">
                     <strong>{wordToUpperCase(displayedItem.question)}</strong>
                   </p>
                   <div className="bg-blue-100 dark:bg-blue-900 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black lg:text-xl md:text-lg dark:text-white">
