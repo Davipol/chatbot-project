@@ -200,7 +200,7 @@ export default function Home() {
         <div
           ref={sidebarRef}
           className={`
-            fixed top-0 left-0 h-full z-20 bg-white shadow-lg transform transition-transform duration-300
+            fixed top-0 left-0 h-full z-20 bg-white dark:bg-zinc-800 shadow-lg transform transition-transform duration-300
             ${showHistory ? "translate-x-0" : "-translate-x-full"}
             sm:static sm:translate-x-0 sm:h-auto sm:w-56sm:shadow-none
           `}
@@ -240,7 +240,7 @@ export default function Home() {
               onChange={(e) => setQuestion(e.target.value)}
             />
             <button
-              className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-700"
+              className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-800"
               type="submit"
               disabled={loading || !question.trim()}
             >
@@ -261,7 +261,7 @@ export default function Home() {
                   <p className="font-bold text-2xl text-center mt-1 text-black dark:text-white">
                     <strong>{wordToUpperCase(displayedItem.question)}</strong>
                   </p>
-                  <div className="bg-blue-100 dark:bg-blue-950 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black dark:text-white">
+                  <div className="bg-blue-100 dark:bg-blue-900 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black lg:text-xl md:text-lg dark:text-white">
                     {typedLines.map((line, index) => {
                       const fieldNames = [
                         "Modern meaning",
