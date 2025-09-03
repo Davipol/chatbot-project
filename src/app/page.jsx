@@ -200,7 +200,7 @@ export default function Home() {
         <div
           ref={sidebarRef}
           className={`
-            fixed top-0 left-0 h-full z-20 bg-white dark:bg-zinc-800 shadow-lg transform transition-transform duration-300
+            fixed top-0 left-0 h-full z-20 bg-white dark:bg-zinc-800 rounded-tr-lg shadow-lg transform transition-transform duration-300
             ${showHistory ? "translate-x-0" : "-translate-x-full"}
             sm:static sm:translate-x-0 sm:h-auto sm:w-56sm:shadow-none
           `}
