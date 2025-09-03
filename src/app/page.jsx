@@ -240,11 +240,37 @@ export default function Home() {
               onChange={(e) => setQuestion(e.target.value)}
             />
             <button
-              className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-800"
+              className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-800 flex items-center justify-center gap-2"
               type="submit"
               disabled={loading || !question.trim()}
             >
-              {loading ? "Thinking..." : "Ask"}
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="11"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  Thinking...
+                </>
+              ) : (
+                "Ask"
+              )}
             </button>
           </form>
 
@@ -261,7 +287,7 @@ export default function Home() {
                   <p className="font-bold text-2xl md:text-3xl text-center mt-1 text-black dark:text-white">
                     <strong>{wordToUpperCase(displayedItem.question)}</strong>
                   </p>
-                  <div className="bg-blue-100 dark:bg-blue-900 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black lg:text-xl md:text-lg dark:text-white">
+                  <div className="bg-blue-100 dark:bg-zinc-900 h-fit rounded-2xl p-2 space-y-3 mt-2 text-black lg:text-xl md:text-lg dark:text-white">
                     {typedLines.map((line, index) => {
                       const fieldNames = [
                         "Modern meaning",
@@ -278,7 +304,7 @@ export default function Home() {
                   </div>
                   <div className="mx-auto flex">
                     <button
-                      className="w-1/3 mx-auto bg-gray-400 dark:bg-gray-600 text-black dark:text-white  text-xl rounded mt-4 py-2 hover:bg-gray-400"
+                      className="w-1/3 mx-auto bg-gray-400 dark:bg-gray-600 text-black dark:text-white  text-xl rounded mt-4 py-2 hover:bg-gray-500"
                       onClick={() => {
                         setAnswer(null);
                         setTypedLines([]);
