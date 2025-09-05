@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import HistoryBar from "./components/HistoryBar";
 import { LuPanelLeftOpen, LuPanelRightOpen } from "react-icons/lu";
+import { randomWord } from "../../utils/randomWord";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
@@ -239,6 +240,18 @@ export default function Home() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
+            <button
+              type="button"
+              className="w-full mx-auto bg-green-600 hover:bg-green-500 text-white text-lg px-4 py-2 rounded mt-2 dark:bg-green-900 dark:hover:bg-green-800"
+              onClick={async () => {
+                const word = await randomWord();
+                if (word) {
+                  setQuestion(word);
+                }
+              }}
+            >
+              Surprise Me
+            </button>
             <button
               className="w-full mx-auto bg-blue-600 hover:bg-blue-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-blue-900 dark:hover:bg-blue-800 flex items-center justify-center gap-2"
               type="submit"

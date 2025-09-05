@@ -39,7 +39,12 @@ Etymology of "${message}" in this format:{
       replyData = JSON.parse(rawContent);
     } catch (parseError) {
       console.error("Failed to parse model output:", parseError);
-      replyData = { modernMeaning: null, centuryOfOrigin: null, funFact: null };
+      replyData = {
+        modernMeaning: null,
+        centuryOfOrigin: null,
+        detailedEtymology: null,
+        funFact: null,
+      };
     }
 
     return new Response(JSON.stringify(replyData), {
