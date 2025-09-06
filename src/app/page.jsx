@@ -228,7 +228,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex flex-1 flex-col my-12 mx-2 sm:mx-5 md:mx-5 lg:mx-20">
+        <div className="flex flex-1 flex-col my-12 mx-2 sm:mx-5 md:mx-10 lg:mx-20">
           <form
             className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
             onSubmit={handleSubmit}
@@ -242,7 +242,7 @@ export default function Home() {
             />
             <button
               type="button"
-              className="w-full mx-auto bg-green-600 hover:bg-green-500 text-white text-lg px-4 py-2 rounded mt-2 dark:bg-green-900 dark:hover:bg-green-800"
+              className="w-full mx-auto bg-green-600 hover:bg-green-500 text-white text-xl px-4 py-2 rounded mt-2 dark:bg-green-900 dark:hover:bg-green-800"
               onClick={async () => {
                 const word = await randomWord();
                 if (word) {
@@ -286,6 +286,39 @@ export default function Home() {
               )}
             </button>
           </form>
+          {loading && (
+            <div className="mt-4 w-full text-center text-black dark:text-gray-200">
+              <h2 className="font-bold text-lg md:text-2xl text-center mt-2 text-black dark:text-white">
+                Finding{" "}
+              </h2>
+              <p className="font-bold text-2xl md:text-3xl text-center mt-1 text-black dark:text-white">
+                {wordToUpperCase(submittedQuestion)}
+              </p>
+
+              <div className="flex justify-center mt-3">
+                <svg
+                  className="animate-spin h-15 w-10 text-gray-700 dark:text-gray-200"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="15"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+              </div>
+            </div>
+          )}
 
           <div className="mt-4 w-full">
             {error ? (

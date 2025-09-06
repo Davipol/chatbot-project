@@ -10,8 +10,8 @@ const HistoryBar = ({
   onDeleteItem,
 }) => {
   return (
-    <div className="w-60 sm:w-60 md:w-64 lg:w-72 min-h-screen border-r-3 border-t-3 border-stone-300 rounded-tr-lg overflow-hidden inline-block bg-stone-100 dark:bg-stone-900 text-black  dark:text-white">
-      <div className="relative border-b-3 pb-1 flex justify-center items-center">
+    <div className="w-56 min-h-screen border-r-3 border-t-3 border-stone-300 rounded-tr-lg overflow-hidden inline-block bg-stone-100 dark:bg-stone-900 text-black dark:text-white">
+      <div className="relative border-b-3  pb-1 flex justify-center items-center">
         <h2 className="font-bold text-2xl my-3 text-center pr-10">History</h2>
 
         <div
