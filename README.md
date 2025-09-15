@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📖 e-Tymology
 
-## Getting Started
+e-Tymology is an interactive web application that lets you explore the **origin and meaning of words** in an engaging way. Simply type a word (or let the app *surprise you* with a random one), and e-Tymology will reveal its modern meaning, century of origin, detailed etymology, and even a fun fact.  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔍 **Word Lookup** – Enter any word or phrase to discover its story.  
+- 🎲 **Surprise Me Button** – Get a random word when you’re feeling curious.  
+- 📝 **History Bar** – Keeps track of previously searched words.  
+  - Select a past word to view its explanation again.  
+  - Clear history or remove individual entries.  
+- 🎨 **Light/Dark Mode** – Toggle between themes for comfortable reading.  
+- ⏳ **Typing Effect** – Answers appear as if they are being typed in real time.  
+- 📱 **Responsive Design** – Works seamlessly on mobile, tablet, and desktop.  
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend**: [Next.js (App Router)](https://nextjs.org/) + [React](https://react.dev/)  
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)  
+- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)  
+- **Storage**: LocalStorage for saving history  
+- **Backend**: Next.js API Route (`/api/chat`) – connects to your language/etymology service  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+e-tymology/
+│
+├── app/
+│ ├── page.js # Main home page
+│ ├── api/
+│ │ └── chat/route.js # API endpoint for word lookup
+│ └── components/
+│ ├── Header.js # App header with title & dark mode toggle
+│ ├── HistoryBar.js # Sidebar with word history
+│
+├── utils/
+│ └── randomWord.js # Fetches a random word
+│
+├── public/ # Static assets
+├── styles/ # Tailwind styles
+└── README.md
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Installation & Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the repository:**
+   git clone https://github.com/your-username/e-tymology.git
+   cd e-tymology
+2. **Run the development server:**
+   npm run dev
+3. **Open your browser:**
+   http://localhost:3000
