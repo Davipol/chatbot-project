@@ -29,7 +29,8 @@ e-Tymology is an interactive web application that lets you explore the **origin 
 
 ## 📂 Project Structure
 
-e-tymology/
+```
+e-Tymology/
 │
 ├── app/
 │ ├── page.js # Main home page
@@ -45,15 +46,67 @@ e-tymology/
 ├── public/ # Static assets
 ├── styles/ # Tailwind styles
 └── README.md
-
+```
 ---
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repository:**
-   git clone https://github.com/your-username/e-tymology.git
-   cd e-tymology
-2. **Run the development server:**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/e-Tymology.git
+   cd e-Tymology
+2. **Run the development server**
+   ```bash
    npm run dev
-3. **Open your browser:**
+3. **Open your browser**
+   ```bash
    http://localhost:3000
+
+## 🌱 Environment Variables
+
+Create a `.env.local` file in the root directory and add your API keys or environment-specific variables. Example:
+```bash
+OPENROUTER_API_KEY=your_api_key_here
+```
+---
+
+## 🔧 Usage
+
+- Type a word or phrase in the input field.  
+- Click **Ask** to fetch the word’s etymology.  
+- Click **Surprise Me** to get a random word.  
+- Use the **History Bar** to revisit past searches or clear them.  
+- Toggle between **Light/Dark Mode** with the button in the header.
+
+---
+
+## 🌐 Live Deployment
+
+The e-Tymology app is deployed and accessible online. You can try it without installing anything locally:
+
+[Visit e-Tymology Live](https://e-tymology.vercel.app)
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. **Fork the repository.**
+
+2. **Create a new branch** for your feature or bugfix:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+3. **Make your changes and commit them:**
+   ```bash
+   git commit -m "Add some feature"
+4. **Push to your branch:**
+
+   ```bash
+   git push origin feature/your-feature-name
+5. **Open a Pull Request** in the original repository.
+   Please follow standard GitHub practices for commits and PR descriptions.
+
+## 📄 License
+
+This project is licensed under the **MIT License**.  
+See the [LICENSE](./LICENSE) file for more details.
