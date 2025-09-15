@@ -178,21 +178,21 @@ export default function Home() {
       {showHistory ? (
         <LuPanelRightOpen
           size={30}
-          className="md:hidden fixed top-4 left-64 z-30  text-black dark:text-white rounded transform "
+          className="lg:hidden fixed top-4 left-64 z-30  text-black dark:text-white rounded transform "
           onClick={() => setShowHistory(false)}
           title="Close History"
         />
       ) : (
         <LuPanelLeftOpen
           size={30}
-          className="md:hidden fixed top-4 left-3 z-30   text-blue-600 dark:text-white rounded"
+          className="lg:hidden fixed top-4 left-3 z-30   text-blue-600 dark:text-white rounded"
           onClick={() => setShowHistory(true)}
           title="Open History"
         />
       )}
       {showHistory && (
         <div
-          className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-10"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-10"
           onClick={() => setShowHistory(false)}
         />
       )}
@@ -203,7 +203,7 @@ export default function Home() {
           className={`
             fixed top-0 left-0 h-full z-20 bg-white dark:bg-zinc-800 rounded-tr-lg shadow-lg transform transition-transform duration-300
             ${showHistory ? "translate-x-0" : "-translate-x-full"}
-            md:static md:translate-x-0 md:h-auto md:w-56 sm:shadow-none
+            lg:static lg:translate-x-0 lg:h-auto md:w-56 lg:shadow-none
           `}
         >
           <HistoryBar

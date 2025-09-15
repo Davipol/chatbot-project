@@ -26,7 +26,7 @@ const Header = () => {
         className="mr-5 rounded-2xl border-1 p-2 bg-blue-700 dark:bg-zinc-800 text-white hover:bg-blue-600 dark:hover:bg-zinc-700 transition"
         title="Toggle Dark Mode"
       >
-        {isDarkMode ? <LuMoon size={25} /> : <LuSun size={25} />}
+        {isDarkMode ? <LuMoon size={20} /> : <LuSun size={20} />}
       </button>
     </div>
   );
